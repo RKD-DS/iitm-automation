@@ -1,0 +1,22 @@
+name: Daily Automated Commit
+on:
+  schedule:
+    - cron: '15 6 * * *'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: IITM Student Step - 24ds1000033@ds.study.iitm.ac.in
+        run: echo "Processing for 24ds1000033@ds.study.iitm.ac.in"
+      - run: date >> last_run.txt
+      - name: Commit and Push
+        run: |
+          git config --local user.email "24ds1000033@ds.study.iitm.ac.in"
+          git config --local user.name "Kumar Rajesh Dangi"
+          git add last_run.txt
+          git commit -m "Automated daily commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
